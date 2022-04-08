@@ -11,12 +11,8 @@
 ---
 
 == Definition
-*Class* là gì ?
+Các chuẩn giao tiếp:
 
-*public* là gì ?
+I2C là gì ?
 
-*private* là gì ?
-
-*virtual* là gì ?
-
-Dấu *~* có ý nghĩa là gì ?
+CAN là gì ?
