@@ -1,0 +1,22 @@
+= C++ definition
+:sectnums: all
+:sectnumlevels: 5
+:toc: left
+:toclevels: 9
+:toc-title: Content
+
+:description: Example AsciiDoc document
+:keywords: AsciiDoc
+:imagesdir: ./Images
+---
+
+== Definition
+*Class* là gì ?
+
+*public* là gì ?
+
+*private* là gì ?
+
+*virtual* là gì ?
+
+Dấu *~* có ý nghĩa là gì ?
