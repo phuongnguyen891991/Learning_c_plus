@@ -11,12 +11,369 @@
 ---
 
 == Definition
-*Class* là gì ?
 
-*public* là gì ?
+==== *Class* là gì ?
+. Định nghĩa:
+** Class là một mô tả trừu tượng của nhóm các đối tượng có cùng thuộc tính bản chất, Ngược lại mỗi đối tượng là một thể hiện cụ thể  cho những mô tả trừu tượng đó, và sẽ có những đặc điểm sau:
+** Một class bao gồm các thành phần dữ liệu (các thuộc tính) và các phương thức.
+** là một kiểu dữ liệu do người dùng định nghĩa.
 
-*private* là gì ?
+. khai báo:
+* Khai báo Class có 2 thành phần:
+  ** Thuộc tính
+  ** Phương thức
++
+[source, shell]
+----
+class  <Tên lop>
+  {
+    public:
+    (danh sách các thành viên [bao gồm cả thuộc tính và phương thức] có đặc tính công cộng)
+    private:
+    (danh sách các thành viên [bao gồm cả thuộc tính và phương thức] có đặc tính riêng tư)
+    protected:
+    (danh sách các thành viên [bao gồm cả thuộc tính và phương thức] có đặc tính bảo tồn)
+  };  // dấu chấm phẩy chấm dứt câu lệnh
+----
 
-*virtual* là gì ?
+** Việc sử dụng _class_ trong một chương trình C++ có 2 phần chính:
+*** là phần định nghĩa class
+*** khai báo và truy cập các thành viên của một đối tượng
++
+[source, c++]
+----
+class SV{
+   // thuoc tinh
+   public:
+     char hoTen[30];
+     int tuoi;
+     float diem;
+   // phuong thuc
+   public:
+     void NhapDiem();
+     float TinhDiem();
+   };
+----
 
-Dấu *~* có ý nghĩa là gì ?
+** Ví dụ đơn giản nhất về một class như sau:
++
+[source, c++]
+----
+class sinhvien
+{
+      string masinhvien;
+      int tuoi;
+      float diemtoan, diemly, diemhoa;
+};
+----
+
+==== *public* là gì ?
+* (ám chỉ về phạm vi truy cập/ truy xuất của lập trình viên đến các thuộc tính bên trong class.)
+** từ khóa public quyết định quyền truy cập của các thành viên trong class.
+** Không hạn chế. Thành phần có thuộc tính này có thể được truy cập ở bất kì vị trí nào.
+
+==== *private* là gì ?
+** Thành phần có thuộc tính này sẽ chỉ được truy cập từ bên trong lớp. Bên ngoài lớp hay trong lớp dẫn xuất sẽ không thể truy cập được.
+
+==== *protect* là gì ?
+** Mở rộng hơn private một chút. Thành phần có thuộc tính này sẽ có thể truy cập ở trong nội bộ lớp và trong lớp dẫn xuất (lớp dẫn xuất sẽ được trình bày trong bài Tính Kế Thừa )
+
+[NOTE]
+Qui tắc:  Hãy thiết lập cấp độ truy cập private (riêng tư) cho các *_biến_* thành viên, và cấp độ truy cập public (công khai) cho các *_hàm_* thành viên, trừ khi bạn tìm được một lý do chính đáng để không làm vậy.
+
+** ví dụ khác như sau:
++
+[source, c++]
+----
+#include <iostream>
+
+class DateClass // members are private by default
+{
+    int m_month; // private by default, can only be accessed by other members
+    int m_day; // private by default, can only be accessed by other members
+    int m_year; // private by default, can only be accessed by other members
+
+public:
+    void setDate(int month, int day, int year) // public, can be accessed by anyone
+    {
+        // setDate() can access the private members of the class because it is a member of the class itself
+        m_month = month;
+        m_day = day;
+        m_year = year;
+    }
+
+    void print() // public, can be accessed by anyone
+    {
+        std::cout << m_month << '/' << m_day << '/' << m_year;
+    }
+
+    // Note the addition of this function
+    void copyFrom(const DateClass &d)
+    {
+      // Note that we can access the private members of d directly
+      m_month = d.m_month;
+      m_day = d.m_day;
+      m_year = d.m_year;
+    }
+};
+
+int main()
+{
+    DateClass date;
+    date.setDate(10, 14, 2020); // okay, because setDate() is public
+    date.print(); // okay, because print() is public
+
+    DateClass copy;
+    copy.copyFrom(date); // okay, because copyFrom() is public
+    copy.print();
+
+    return 0;
+}
+----
+
+[NOTE]
+Lưu ý rằng, mặc dù chúng ta không thể truy cập trực tiếp tới các biến thành viên m_month, m_day và m_year của class DateClass (bởi vì chúng là private - riêng tư), nhưng chúng ta vẫn có thể truy cập chúng một cách gián tiếp thông qua các hàm thành viên có cấp độ truy cập là public - công khai như setDate() và print()!
+
+* Kiểm soát hoạt động truy cập trên từng Class:
++
+** Trong ví dụ trên, *_copyFrom()_* là một hàm thành viên của class DateClass, điều này cho phép nó truy cập được vào các thành viên private của class DateClass. Điều này có nghĩa là hàm copyFrom() không chỉ có thể truy cập được trực tiếp vào các thành viên private của đối tượng ngầm (implicit object) nó đang làm việc cùng (chính là đối tượng copy), mà nó còn có quyền truy cập trực tiếp vào các thành viên private của biến tham số d thuộc kiểu DateClass! Trong trường hợp biến tham số d thuộc kiểu dữ liệu khác thì điều này sẽ không xảy ra.
+
+
+==== *virtual* là gì ?
+* Một số tài liệu có viết công dụng của Virtual Function như sau:
+----
+"Virtual Function là để khai báo một function ở class cha (base class) mà sau đó các class kế thừa (derived class) có thể override function đó"
+----
+
+* Nhưng chờ đã, có gì không ổn ở chỗ này, nếu chỉ là để override thôi thì mình hoàn toàn có thể khai báo function ở base class mà không cần virtual thì vẫn được cơ mà. Vậy ko lẽ đồng chí Virtual Function này vô dụng? Để làm rõ vấn đề cũng như hạn chế buồn ngủ vì phải đọc quá nhiều chữ, chúng ta thử xét ví dụ nhỏ sau:
++
+[source, c++]
+----
+class Buffalo {
+public:
+    void  action(){printf("I'm eating grass\n");};
+};
+
+class YoungBuffalo : public Buffalo {
+    void action(){printf("I'm typing keyboard\n");};
+};
+
+int main()
+{
+  Buffalo *elon = new Buffalo();
+  YoungBuffalo *andy = new YoungBuffalo();
+
+  elon->action();
+  andy->action();
+}
+----
+
+** Output sẽ ra như thế này:
++
+[source, shell]
+----
+I'm eating grass
+I'm typing keyboard
+----
+
+* Nếu chỉ xét đến đây thì cậu virtual chắc sẽ hơi buồn vì mọi chuyện có vẻ vẫn ổn mà không cần đến sự có mặt của nó. Vì vậy chúng ta thử xét tiếp 1 ví dụ khác để làm chỗ cho virtual toả sáng một chút.
++
+[source, c++]
+----
+class Buffalo {
+public:
+    void  action(){printf("I'm eating grass\n");};
+};
+
+class YoungBuffalo : public Buffalo {
+public:
+    void action(){printf("I'm typing keyboard\n");};
+};
+
+int main()
+{
+  Buffalo *elon = new Buffalo();
+  Buffalo *andy = new YoungBuffalo(); // khác với lúc nãy là YoungBuffalo *andy = new YoungBuffalo();
+
+  elon->action();
+  andy->action();
+}
+----
+
+** Lần này output sẽ là như thế này:
++
+[source, shell]
+----
+I'm eating grass
+I'm eating grass
+----
+
+* Đến đây thì chắc không cần phải quá tinh mắt bạn cũng đã nhận ra vấn đề rồi đúng không. Mặc dù andy được tạo ra từ constructor của class YoungBuffalo thế nhưng nó hành xử lại như thể nó là một Buffalo. Thế nhưng ví dụ này trông hơi bị thiếu thông minh vì chả mấy ai khai báo *_Buffalo *andy = new YoungBuffalo(); _* như này để tự làm khó mình cả. Mình sẽ xét một ví dụ thực tế hơn chút nữa.
++
+[source, c++]
+----
+class Buffalo {
+public:
+    void  action(){printf("I'm eating grass\n");};
+};
+
+class YoungBuffalo : public Buffalo {
+public:
+    void action(){printf("I'm typing keyboard\n");};
+};
+
+void takeAnBuffalo(Buffalo* buffalo){
+    buffalo->action();
+}
+
+int main()
+{
+  Buffalo *elon = new Buffalo();
+  Buffalo *andy = new YoungBuffalo();
+  takeAnBuffalo(elon);
+  takeAnBuffalo(andy);
+}
+----
+
+** Output sẽ vẫn lại là:
++
+[source, shell]
+----
+I'm eating grass
+I'm eating grass
+----
+
+* Lúc này thì vấn đề thực sự đã rõ rồi, vì vậy chúng ta sẽ fix với vấn đề này với virtual như sau:
++
+[source, c++]
+----
+class Buffalo {
+public:
+    virtual void  action(){printf("I'm eating grass\n");}; // thêm virtual vào chỗ này
+};
+
+class YoungBuffalo : public Buffalo {
+public:
+    void action(){printf("I'm typing keyboard\n");};
+};
+
+void takeAnBuffalo(Buffalo* buffalo){
+    buffalo->action();
+}
+
+int main()
+{
+  Buffalo *elon = new Buffalo();
+  Buffalo *andy = new YoungBuffalo();
+  takeAnBuffalo(elon);
+  takeAnBuffalo(andy);
+}
+----
+
+** Output sẽ như sau:
++
+[source, shell]
+----
+I'm eating grass
+I'm typing keyboard
+----
+
+==== Con trỏ *this* là gì ?
+** This là một con trỏ đặc biệt dùng để trỏ đến địa chỉ của đối tượng hiện tại. Như vậy để truy cập đến các thuộc tính, phương thức của đối tượng hiện tại thì ta sẽ sử dụng con trỏ this. Hãy xem ví dụ dưới đây.
++
+[source, c++]
+----
+#include <iostream>
+using namespace std;
+class NhanVien {
+    int msnv;
+    string ten;
+    int tuoi;
+    public:
+       void setData(int msnv, string ten, int tuoi) {
+            this->msnv = msnv;
+            this->ten = ten;
+            this->tuoi = tuoi;
+       }
+       void showData() {
+            cout << "Ten nhan vien: " << this->ten << endl;
+            cout << "Ma so nhan vien: " << this->msnv << endl;
+            cout << "Tuoi: " << this->tuoi << endl;
+       }
+};
+----
+
+* Giải thích thêm cho phần ví dụ:
+** Khi chúng ta khai báo tên của tham số hàm trùng tên với dữ liệu thành viên của lớp, thì bên trong hàm xây dựng chương trình hiểu là biến tham số chứ không phải dữ liệu thành viên của lớp
+** Như vậy ở ví dụ trên, bên trong thân hàm xây dựng ta gán msnv = msnv, ten = ten, tuoi = tuoi, thì chương trình hiểu mssv, ten, tuoi chính là biến truyền vào từ hàm xây dựng, chính vì vậy nó không cập nhật vào các thuộc tính của đối tượng.
+** Khi các dữ liệu thành viên như msnv, ten, tuoi không được khỏi tạo giá trị nó sẽ có giá trị tự động cho chương trình tạo ra mà chúng ta không hề biết trước
+
+==== Dấu *_~_* có ý nghĩa là gì ?
+* kí hiệu khái niệm này liên quan đến constructor và deconstructor
+. constructor (phương thức khởi tạo)
+** Các phương thức thiết lập có nhiệm vụ thiết lập thông tin ban đầu cho mộ đối tượng thuộc về  class ngay khi đối tượng được khai báo.
+
+. deconstructor
+** Phương thức hủy có nhiệm vụ thu hồi lại bộ nhớ được cấp phát cho đối tượng thuộc class ngay khi đối tượng hết phạm vi hoạt động.
+
+* ví dụ:
++
+[source, c++]
+----
+class CString
+{
+  private:
+     char *_text;
+     int  size;
+  public:
+     CString(char *ch);//Phương thức khởi tạo
+     ~CString(); // Phương thức hủy
+  };
+
+// Định nghĩa phương thức khởi tạo
+CString::CString( char *ch )
+{
+  size = strlen(ch) + 1;
+  //Cấp phát bộ nhớ cho biến _text
+  _text = new char[size];
+  if(_text)
+  strcpy( _text, ch);
+}
+
+// Định nghĩa phương thức hủy
+CString::~CString()
+{
+  // Thu hồi bộ nhớ cấp phát cho biến _text
+  if (_text)
+  delete[] _text;
+}
+----
+
+==== *inline* là gì ?
+** Inline functions (hàm nội tuyến) là một loại hàm trong ngôn ngữ lập trình C++. Từ khoá inline được sử dụng để đề nghị (không phải là bắt buộc) compiler (trình biên dịch) thực hiện inline expansion (khai triển nội tuyến) với hàm đó hay nói cách khác là chèn code của hàm đó tại địa chỉ mà nó được gọi.
+
+** Những vấn đề cần lưu ý khi dùng inline functions
+*** Hãy nhớ rằng, từ khóa inline (nội tuyến) chỉ là một yêu cầu cho trình biên dịch, không phải là một lệnh bắt buộc.
+*** Trình biên dịch có thể không thực hiện nội tuyến trong các trường hợp như:
+  . Hàm chứa vòng lặp (for, while, do-while).
+  . Hàm chứa các biến tĩnh.
+  . Hàm đệ quy.
+  . Hàm chứa câu lệnh switch hoặc goto.
+*** Hầu hết các trình biên dịch hiện đại sẽ tự động đặt các hàm nội tuyến nếu cần thiết. Do đó, trong hầu hết các trường hợp, nếu không có nhu cầu cụ thể để sử dụng từ khóa nội tuyến, hãy để trình biên dịch xử lý các hàm nội tuyến cho bạn.
+
+** Ưu điểm:
+  . Tiết kiệm chi phí gọi hàm.
+  . Tiết kiệm chi phí của các biến trên ngăn xếp khi hàm được gọi.
+  . Tiết kiệm chi phí cuộc gọi trả về từ một hàm.
+  . Có thể đặt định nghĩa hàm nội tuyến (inline functions) trong file tiêu đề (*.h) (nghĩa là nó có thể được include trong nhiều đơn vị biên dịch, hàm thông thường sẽ gây ra lỗi).
+
+** Nhược điểm:
+  . Tăng kích thước file thực thi do sự trùng lặp của cùng một mã.
+  . Khi được sử dụng trong file tiêu đề (*.h), nó làm cho file tiêu đề của bạn lớn hơn.
+  . Hàm nội tuyến có thể không hữu ích cho nhiều hệ thống nhúng. Vì trong các hệ thống nhúng, kích thước mã quan trọng hơn tốc độ.
+
+
+
+=== Ghi chú:
+* Đây là kiến thức được tham khảo từ nhiều nguồn khác nhau bao gồm sách C++ references và internet.
+* Tài liệu này chỉ là ghi chú cá nhân nhằm mục đích học hỏi và củng cố  kiến thức, không nhằm vào bất kì mục đích thương mại.
