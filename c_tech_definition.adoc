@@ -16,3 +16,5 @@ Các chuẩn giao tiếp:
 I2C là gì ?
 
 CAN là gì ?
+
+I2S là gì ?
