@@ -17,6 +17,12 @@ I2C là gì ?
 
 CAN là gì ?
 
+<<<<<<< HEAD
 DIO là chuẩn gì ?
 
 Sự khác nhau giữa các chuẩn là gì ?
+=======
+I2S là gì ?
+
+SPI là gì ?
+>>>>>>> f48fad63d238836e70805b5842abfd0534ef548b
