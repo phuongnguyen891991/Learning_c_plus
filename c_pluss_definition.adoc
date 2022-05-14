@@ -145,7 +145,7 @@ Lưu ý rằng, mặc dù chúng ta không thể truy cập trực tiếp tới 
 "Virtual Function là để khai báo một function ở class cha (base class) mà sau đó các class kế thừa (derived class) có thể override function đó"
 ----
 
-* Nhưng chờ đã, có gì không ổn ở chỗ này, nếu chỉ là để override thôi thì mình hoàn toàn có thể khai báo function ở base class mà không cần virtual thì vẫn được cơ mà. Vậy ko lẽ đồng chí Virtual Function này vô dụng? Để làm rõ vấn đề cũng như hạn chế buồn ngủ vì phải đọc quá nhiều chữ, chúng ta thử xét ví dụ nhỏ sau:
+* Nhưng nếu chỉ là để override thôi thì mình hoàn toàn có thể khai báo function ở base class mà không cần virtual thì vẫn được cơ mà. Vậy ko lẽ Virtual Function này vô dụng? Để làm rõ vấn đề cũng như hạn chế buồn ngủ vì phải đọc quá nhiều chữ, chúng ta thử xét ví dụ nhỏ sau:
 +
 [source, c++]
 ----
