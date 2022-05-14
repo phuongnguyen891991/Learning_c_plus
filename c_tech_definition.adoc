@@ -16,3 +16,7 @@ Các chuẩn giao tiếp:
 I2C là gì ?
 
 CAN là gì ?
+
+DIO là chuẩn gì ?
+
+Sự khác nhau giữa các chuẩn là gì ?
