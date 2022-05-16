@@ -7,22 +7,88 @@
 
 :description: Example AsciiDoc document
 :keywords: AsciiDoc
-:imagesdir: ./Images
+:imagesdir: ./images
 ---
 
 == Definition
 Các chuẩn giao tiếp:
 
-I2C là gì ?
+=== Giao tiếp SPI
+==== Topology
+==== Nguyên lí hoạt động
+==== Ưu điểm
+==== Nhược điểm
 
-CAN là gì ?
+=== Giao tiếp I2C
+* Là giao thức truyền nối tiếp đồng bộ, các bit được truyền từng bít dọc theo 1 đường duy nhất (đường SDA).
 
-<<<<<<< HEAD
-DIO là chuẩn gì ?
+==== Topology
+. *Một Master và một Slave*
++
+image:giao-tiep-i2c.png[]
+
+. *Một Master và nhiều Slave*
++
+image:i2c-1-master-nhieu-slave.png[]
+
+. *Nhiều Master và nhiều Slave*
++
+image:i2c-nhieu-master-nhieu-slave.png[]
+
+==== Nguyên lí hoạt động
+. Cấu tạo
+* Giao tiếp I2C bao gồm quá trình truyền nhận giữa các thiết bị: *_Master_* và *_Slave_*
++
+[NOTE]
+====
+* Thiết bị Master là 1 vi điều khiển, nó có nhiệm vụ:
+** điều khiển đường tín hiệu SCL.
+** gửi nhận dữ liệu hay lệnh thông qua đường SDA đến các thiết bị khác.
+* Các thiết bị nhận các dữ liệu lệnh và tín hiệu từ thiết bị Master được gọi là các thiết bị Slave.
+====
+
+* I2C chỉ sử dụng hai dây để truyền dữ liệu giữa các thiết bị
+** SDA (Serial Data) - đường truyền cho master và slave để gửi và nhận dữ liệu.
+** SCL (Serial Clock) - đường mang tín hiệu xung nhịp.
+
+. Hoạt động
+* Với I2C, dữ liệu được truyền trong các tin nhắn, mỗi tin nhắn có:
+** một khung địa chỉ chứa địa chỉ của các slave (địa chỉ nhị phân).
+** một hoặc nhiều khung dữ liệu chứa dữ liệu cần truyền.
++
+image:tin-nhan-i2c.png[]
+
+* Master gửi địa chỉ của slave mà nó muốn giao tiếp với mọi slave được kết nối với nó. Sau đó, mỗi slave sẽ so sánh địa chỉ được gửi từ master với địa chỉ của chính nó. Nếu địa chỉ phù hợp, nó sẽ gửi lại một bit ACK điện áp thấp cho master. Nếu địa chỉ không khớp, slave không làm gì cả và đường SDA vẫn ở mức cao.
++
+[plantuml,png]
+----
+@startuml
+activate Master
+activate Slave
+
+Master -> Slave: Gửi broadcast địa chỉ của Slave đang cần muốn giao tiếp.
+Slave -> Slave: So sánh địa chỉ có phải của mình không ?
+Slave -> Slave: Nếu không gói tin không gửi đúng địa chỉ -> ignore
+Master -> Slave: Gói tin gửi đúng cho slave, gửi ACK.
+
+@enduml
+----
+
+==== Ưu điểm
+* Chỉ sử dụng hai dây
+* Hỗ trợ nhiều master và nhiều slave
+* Bit ACK / NACK xác nhận mỗi khung được chuyển thành công
+* Phần cứng ít phức tạp hơn so với UART
+* Giao thức nổi tiếng và được sử dụng rộng rãi
+
+==== Nhược điểm
+* Tốc độ truyền dữ liệu chậm hơn SPI
+* Kích thước của khung dữ liệu bị giới hạn ở 8 bit
+* Cần phần cứng phức tạp hơn để triển khai so với SPI
+
+=== CAN là gì ?
+
+=== DIO là chuẩn gì ?
 
 Sự khác nhau giữa các chuẩn là gì ?
-=======
-I2S là gì ?
-
-SPI là gì ?
->>>>>>> f48fad63d238836e70805b5842abfd0534ef548b
+=== I2S là gì ?
