@@ -148,9 +148,47 @@ Master -> Slave: Gói tin gửi đúng cho slave, gửi ACK.
 * Kích thước của khung dữ liệu bị giới hạn ở 8 bit
 * Cần phần cứng phức tạp hơn để triển khai so với SPI
 
-=== CAN là gì ?
-
 === DIO là chuẩn gì ?
+==== Topology
+==== Nguyên lí hoạt động
+. Cấu tạo
+. Hoạt động
+
+==== Ưu điểm
+==== Nhược điểm
 
 Sự khác nhau giữa các chuẩn là gì ?
 === I2S là gì ?
+* Là một chuẩn giao tiếp để  truyền dữ liệu âm thanh giữa các thiết bị âm thanh.
+
+==== Topology
+==== Nguyên lí hoạt động
+. Cấu tạo
+. Hoạt động
+
+==== Ưu điểm
+==== Nhược điểm
+
+=== CAN là gì ?
+* CAN (Control Area Network) là công nghệ mạng nối tiếp bán song công, sử dụng 2 dây.
+* Ứng dụng rộng rãi trong ngành công nghiệp ô tô, tuy nhiên nó trở thành một tiêu chuẩn phổ biến trong tự động hóa công nghiệp.
+
+==== Topology
+==== Nguyên lí hoạt động
+. Cấu tạo
++
+image:CANbus-Data-Frame.png[]
+
+* Trong hệ thống CAN, dữ liệu được truyền bằng data frame. Data frame mang dữ liệu từ một nút truyền đến một hoặc nhiều nút nhận.
+* Frame có 2 tiêu chuẩn:
+** Standard Data Frame - CAN tiêu chuẩn 2.0A
+** Extended Data Frame - CAN mở rộng 2.0B
+
+. Hoạt động
+==== Ưu điểm
+==== Nhược điểm
+
+
+== Tham khảo
+* https://mesidas.com/can-canbus/
+* https://dientutuonglai.com/chuan-giao-tiep-i2c-la-gi.html
