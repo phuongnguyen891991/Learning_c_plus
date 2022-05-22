@@ -13,13 +13,75 @@
 == Definition
 Các chuẩn giao tiếp:
 
-=== Giao tiếp SPI
-==== Topology
-==== Nguyên lí hoạt động
-==== Ưu điểm
-==== Nhược điểm
+=== *Giao tiếp SPI*
+* Là giao thức truyền nối tiếp đồng bộ ở chế độ full-deplex (nghĩa là tại một thời điểm có thể xảy ra đồng thời quá trình gửi và nhận)
+* Thường được sử dụng giao tiếp với bộ nhớ EEPROM, RTC (Đồng hồ thời gian thực), IC âm thanh, các loại cảm biến như nhiệt độ và áp suất, thẻ nhớ như MMC hoặc thẻ SD hoặc thậm chí các bộ vi điều khiển khác.
 
-=== Giao tiếp I2C
+==== Topology
+* Cấu hình cơ bản là có 1 Master duy nhất nhưng 1 Master có thể điều khiển được nhiều Slave.
+
+. *Mô hình cơ bản 1 Master + 1 Slave*
++
+image:giao-tiep-spi.png[]
+
+. *Master với nhiều Slave*
+image:giao-tiep-spi-noi-song-song-nhieu-slave.png[]
+
+. *Master với các Slave mắc nối tiếp nhau*
+image:giao-tiep-spi-noi-chuoi-nhieu-slave.png[]
+
+==== Nguyên lí hoạt động
+. Cấu tạo
+* Các thiết bị giao tiếp qua SPI có quan hệ *_Master_* và *_Slave_*
++
+[NOTE]
+====
+* Master là thiết bị điều khiển (thường là vi điều khiển).
+* Slave (thường là cảm biến, màn hình hoặc chip nhớ) nhận lệnh từ master.
+====
+
+* SPI sử dụng 4 dây để  truyền dữ liệu giữa các thiết bị
+** MOSI (đầu ra master / đầu vo slave) - đường truyền cho master gửi dữ liệu đến slave.
+** MISO (đầu vào master / đầu ràa slave) - đường cho slave gửi dữ liệu đến master.
+** SCLK (clock) - đường cho tín hiệu xung nhịp.
+** SS / CS (Slave Select / Chip Select) - đường cho master chọn slave nào để gởi tín hiệu.
+
+. Hoạt động
+* Master ra tín hiệu xung nhịp.
+* Master chuyển chân SS / CS sang trạng thái điện áp thấp, điều này sẽ kích hoạt slave.
+* Master gửi dữ liệu từng bit một tới slave dọc theo đường MOSI.
+** Master bắt đầu việc trao đổi dữ liệu bằng cách truyền đi 1 byte vào thanh ghi dịch của nó.
+** Với mỗi 1 byte dữ liệu truyền đi, nó mất 8 chu kì đồng hồ.
+* Slave đọc các bit khi nó nhận được.
+* Nếu cần phản hồi, slave sẽ trả lại dữ liệu từng bit một cho master dọc theo đường MISO.
++
+
+[NOTE]
+====
+* Với đường MOSI
+** Master gửi dữ liệu đến slave từng bit, nối tiếp qua đường MOSI. Slave nhận dữ liệu được gửi từ master tại chân MOSI
+** Dữ liệu được gửi từ master đến slave thường được gửi với bit quan trọng nhất trước.
+
+* Với đường MISO
+** Slave cũng có thể gửi dữ liệu trở lại master thông qua đường MISO nối tiếp.
+** Dữ liệu được gửi từ slave trở lại master thường được gửi với bit ít quan trọng nhất trước.
+====
+* Master đọc các bit khi nó nhận được.
+
+==== Ưu điểm
+* Không có bắt đầu và dừng nên dữ liệu có thể được truyền liên tục mà không bị gián đoạn.
+* Không có hệ thống định địa chỉ phức tạp như I2C.
+* Tốc độ truyền dự liệu nhanh hơn I2C (nhan gần gấp đôi).
+* Các đường MOSI & MISO riêng biệt nên có thể gửi và nhận cùng lúc.
+
+==== Nhược điểm
+* Sử dụng 4 dây tín hiệu.
+* Không xác nhận được dữ liệu đã gửi thành công hay chưa.
+* Không có hình thức kiểm tra lỗi như bit chẵn lẻ trong uart.
+* Chỉ có 1 Master duy nhất.
+
+
+=== *Giao tiếp I2C*
 * Là giao thức truyền nối tiếp đồng bộ, các bit được truyền từng bít dọc theo 1 đường duy nhất (đường SDA).
 
 ==== Topology
