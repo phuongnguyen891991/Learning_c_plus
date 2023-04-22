@@ -20,21 +20,20 @@ Using stack to resolve
 */
 
 /* Code is already work on LeetCode */
-
 class Solution {
 public:
     string removeDuplicates(string s) {
         int len = s.length();
-        string ans="";
-
+        string stack_str="";
+        
         for (int i = 0; i < len; i++) {
-            if (ans.back() == s[i]) {
-                ans.pop_back();
+            if (stack_str.back() == s[i]) {
+                stack_str.pop_back();
             } else {
-                ans.push_back(s[i]);
+                stack_str.push_back(s[i]);
             }
         }
 
-        return ans;
+        return stack_str;
     }
 };
