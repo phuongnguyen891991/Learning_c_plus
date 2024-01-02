@@ -13,6 +13,34 @@
 == Definition
 Các chuẩn giao tiếp:
 
+=== *Giao tiếp UART*
+* Là giao thức nối tiếp không đồng bộ
+* Full duplex: Giao tiếp đồng thời đến và đi từ mỗi master và slave
+* Half duplex: Dữ liệu đi theo một hướng tại một thời điểm
+* Simplex: Chỉ giao tiếp một chiều
+
+==== Topology
+* Cấu hình có bản là có 1 Master và 1 Slave duy nhất
+. *Mô hình cơ bản 1 Master + 1 slave*
++
+image:giao-tiep-uart.png[]
+
+==== Nguyên lý hoạt động
+. Cấu tạo
+* Dữ liệu truyền qua UART được tổ chức thành các gói. Mỗi gói chứa 1 bit bắt đầu, 5 đến 9 bit dữ liệu (tùy thuộc vào UART), một bit chẵn lẻ tùy chọn và 1 hoặc 2 bit dừng.
+
+==== Ưu điểm
+* Chỉ sử dụng hai dây
+* Không cần tín hiệu clock
+* Có một bit chẵn lẻ để cho phép kiểm tra lỗi
+* Cấu trúc của gói dữ liệu có thể được thay đổi miễn là cả hai bên đều được thiết lập cho nó
+* Phương pháp có nhiều tài liệu và được sử dụng rộng rãi
+
+==== Nhược điểm
+* Kích thước của khung dữ liệu được giới hạn tối đa là 9 bit
+* Không hỗ trợ nhiều hệ thống slave hoặc nhiều hệ thống master
+* Tốc độ truyền của mỗi UART phải nằm trong khoảng 10% của nhau
+
 === *Giao tiếp SPI*
 * Là giao thức truyền nối tiếp đồng bộ ở chế độ full-deplex (nghĩa là tại một thời điểm có thể xảy ra đồng thời quá trình gửi và nhận)
 * Thường được sử dụng giao tiếp với bộ nhớ EEPROM, RTC (Đồng hồ thời gian thực), IC âm thanh, các loại cảm biến như nhiệt độ và áp suất, thẻ nhớ như MMC hoặc thẻ SD hoặc thậm chí các bộ vi điều khiển khác.
@@ -135,7 +163,7 @@ Master -> Slave: Gói tin gửi đúng cho slave, gửi ACK.
 
 @enduml
 ----
-
++
 ==== Ưu điểm
 * Chỉ sử dụng hai dây
 * Hỗ trợ nhiều master và nhiều slave
