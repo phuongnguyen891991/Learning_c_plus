@@ -176,7 +176,7 @@ Master -> Slave: Gói tin gửi đúng cho slave, gửi ACK.
 * Kích thước của khung dữ liệu bị giới hạn ở 8 bit
 * Cần phần cứng phức tạp hơn để triển khai so với SPI
 
-=== DIO là chuẩn gì ?
+=== *DIO là chuẩn gì ?*
 ==== Topology
 ==== Nguyên lí hoạt động
 . Cấu tạo
@@ -186,7 +186,8 @@ Master -> Slave: Gói tin gửi đúng cho slave, gửi ACK.
 ==== Nhược điểm
 
 Sự khác nhau giữa các chuẩn là gì ?
-=== I2S là gì ?
+
+=== *I2S là gì ?*
 * Là một chuẩn giao tiếp để  truyền dữ liệu âm thanh giữa các thiết bị âm thanh.
 
 ==== Topology
@@ -197,7 +198,7 @@ Sự khác nhau giữa các chuẩn là gì ?
 ==== Ưu điểm
 ==== Nhược điểm
 
-=== CAN là gì ?
+=== *CAN là gì ?*
 * CAN (Control Area Network) là công nghệ mạng nối tiếp bán song công, sử dụng 2 dây.
 * Ứng dụng rộng rãi trong ngành công nghiệp ô tô, tuy nhiên nó trở thành một tiêu chuẩn phổ biến trong tự động hóa công nghiệp.
 
