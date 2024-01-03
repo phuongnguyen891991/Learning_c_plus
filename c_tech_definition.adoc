@@ -217,6 +217,20 @@ image:CANbus-Data-Frame.png[]
 ==== Ưu điểm
 ==== Nhược điểm
 
+=== *Thanh ghi*
+==== Topology
+==== Nguyên lí hoạt động
+. Cấu tạo
+* Trong vi điều khiển hoặc vi xử lý có một vùng nhớ đặc biệt. Trong vùng nhớ này, mỗi bit hoặc mỗi byte có giá trị ảnh hưởng trực tiếp đến hoạt động của chip hoặc chip sẽ dùng các byte đó trong tính toán. Tập hợp của một hoặc nhiều byte có cùng chức năng gọi là một thanh ghi.
+* một thanh ghi (registers) có dung lượng bộ nhớ nhỏ và rất nhanh được sử dụng để tăng tốc độ xử lý của các chương trình máy tính bằng cách cung cấp các truy cập trực tiếp đến các giá trị cần dùng. 
+* Số lượng giới hạn thanh ghi được xây dựng trong con chip vi xử lý.
+* có 2 loại thanh ghi: thanh ghi địa chỉ và thanh ghi dữ liệu:
+** Thanh ghi dữ liệu: Dùng để lưu số nguyên
+** Thanh ghi địa chỉ: chứa địa chỉ bộ nhớ và được dùng để truy cập bộ nhớ.
+** Thanh ghi điều kiện: chứa các giá trị thực hiện kiểm tra điều kiện hoặc so sánh
+
+==== Ưu điểm
+==== Nhược điểm
 
 == Tham khảo
 * https://mesidas.com/can-canbus/
