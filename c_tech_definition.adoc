@@ -52,10 +52,12 @@ image:giao-tiep-uart.png[]
 +
 image:giao-tiep-spi.png[]
 
-. *Master với nhiều Slave*
+. *Master với nhiều Slave mắc song song*
++
 image:giao-tiep-spi-noi-song-song-nhieu-slave.png[]
 
 . *Master với các Slave mắc nối tiếp nhau*
++
 image:giao-tiep-spi-noi-chuoi-nhieu-slave.png[]
 
 ==== Nguyên lí hoạt động
